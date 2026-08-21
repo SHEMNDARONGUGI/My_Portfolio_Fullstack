@@ -13,3 +13,8 @@ export const getAllProjects = async (
     data: projects,
   });
 };
+
+export const createProject = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {};
