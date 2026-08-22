@@ -3,11 +3,9 @@ import mongoose, { mongo } from "mongoose";
 const projectSchema = new mongoose.Schema(
   {
     title: {
-      type: {
-        type: String,
-        required: true,
-        trim: true,
-      },
+      type: String,
+      required: true,
+      trim: true,
     },
     description: { type: String, required: true, trim: true },
     technologies: { type: [String], default: [] },
