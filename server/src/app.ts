@@ -1,5 +1,8 @@
 import express from "express";
 import cors from "cors";
+
+import { errorHandler } from "./middleware/error.middleware.js";
+
 import projectRouter from "./features/projects/project.routes.js";
 
 const app = express();
@@ -18,4 +21,5 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/projects", projectRouter);
 
+app.use(errorHandler);
 export default app;
