@@ -6,7 +6,7 @@ export const createExperienceSchema = z.object({
   description: z.string().min(1, "Destription is required"),
   startDate: z.string().min(1, "Start date is required"),
   endDate: z.string().optional(),
-  technologies: z.array(z.string()).default([]),
+  technologies: z.array(z.string()),
   current: z.boolean().default(false),
 });
 
