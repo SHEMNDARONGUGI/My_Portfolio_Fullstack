@@ -1,11 +1,10 @@
-import type { NextFunction, Request, Response } from "express";
-import { success } from "zod";
+import type { ErrorRequestHandler } from "express";
 
-export const errorHandler = (
-  error: unknown,
-  _req: Request,
-  res: Response,
-  next: NextFunction,
+export const errorHandler: ErrorRequestHandler = (
+  error,
+  _req,
+  res,
+  _next,
 ): void => {
   console.error(error);
 

@@ -8,7 +8,6 @@ import {
 } from "./project.service.js";
 
 import { createProjectSchema, updateProjectSchema } from "./project.schema.js";
-import { success } from "zod";
 
 export const getAllProjects = async (
   _req: Request,
