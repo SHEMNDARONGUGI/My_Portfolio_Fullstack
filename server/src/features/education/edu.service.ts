@@ -2,7 +2,7 @@ import { Education } from "./edu.model.js";
 import type { CreateEducationData, UpdateEducationData } from "./edu.schema.js";
 
 export const getAllEducationService = async () => {
-  return await Education.find();
+  return await Education.find().sort({ createdAt: -1 });
 };
 
 export const getEducationByIdService = async (id: string) => {

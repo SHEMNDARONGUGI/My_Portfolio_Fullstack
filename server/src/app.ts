@@ -6,6 +6,7 @@ import { errorHandler } from "./middleware/error.middleware.js";
 import projectRouter from "./features/projects/project.routes.js";
 import experienceRouter from "./features/experience/exp.routes.js";
 import eduRouter from "./features/education/edu.routes.js";
+import skillRouter from "./features/skills/skill.router.js";
 const app = express();
 
 app.use(
@@ -23,5 +24,8 @@ app.get("/", (req, res) => {
 app.use("/api/v1/projects", projectRouter);
 app.use("/api/v1/experience", experienceRouter);
 app.use("/api/v1/education", eduRouter);
+app.use("/api/v1/skill", skillRouter);
+
+// Global errorHandler
 app.use(errorHandler);
 export default app;
