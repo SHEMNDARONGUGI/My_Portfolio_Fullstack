@@ -12,8 +12,8 @@ export const createEducationSchema = z.object({
   logoUrl: optionalUrl,
 });
 
-export const UpdateExperienceSchema = createEducationSchema.partial();
+export const updateEducationSchema = createEducationSchema.partial();
 
-export type createEducationData = z.infer<typeof createEducationSchema>;
+export type CreateEducationData = z.infer<typeof createEducationSchema>;
 
-export type updateEducationData = z.infer<typeof UpdateExperienceSchema>;
+export type UpdateEducationData = z.infer<typeof updateEducationSchema>;

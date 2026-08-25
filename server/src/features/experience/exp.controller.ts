@@ -9,8 +9,6 @@ import {
 } from "./exp.service.js";
 
 import { asyncHandler } from "../../utils/asyncHandler.js";
-import { success } from "zod";
-import { Experience } from "./exp.model.js";
 
 // get all experiences
 
@@ -95,7 +93,7 @@ export const deleteExperience: RequestHandler<{ id: string }> = asyncHandler(
 
     res.status(200).json({
       success: true,
-      message: "Experience deleted successfully",
+      message: "Experience deleted successfully!",
     });
   },
 );

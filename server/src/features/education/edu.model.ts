@@ -33,6 +33,11 @@ const educationSchema = new mongoose.Schema(
     endDate: {
       type: String,
     },
+
+    logoUrl: {
+      type: String,
+      trim: true,
+    },
   },
   {
     timestamps: true,
