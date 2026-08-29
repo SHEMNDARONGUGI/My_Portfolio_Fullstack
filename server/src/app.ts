@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import { errorHandler } from "./middleware/error.middleware.js";
 
@@ -8,19 +9,24 @@ import experienceRouter from "./features/experience/exp.routes.js";
 import eduRouter from "./features/education/edu.routes.js";
 import skillRouter from "./features/skills/skill.router.js";
 import certRouter from "./features/certification/cert.routes.js";
+import authRouter from "./features/auth/auth.routes.js";
 const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.CLIENT_URL,
+    credentials: true,
   }),
 );
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.json({ message: "Portfolio API is running" });
 });
+
+app.use("/api/v1/auth", authRouter);
 
 app.use("/api/v1/projects", projectRouter);
 app.use("/api/v1/experience", experienceRouter);
