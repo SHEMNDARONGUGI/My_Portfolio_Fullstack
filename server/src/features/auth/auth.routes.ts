@@ -7,7 +7,6 @@ import { validate } from "../../middleware/validate.middleware.js";
 import { authenticate } from "../../middleware/auth.middleware.js";
 
 import rateLimit from "express-rate-limit";
-import { success } from "zod";
 
 const router = Router();
 

@@ -13,15 +13,29 @@ import {
   deleteCertificate,
 } from "./cert.controller.js";
 
+import { authorize } from "../../middleware/role.middleware.js";
+import { authenticate } from "../../middleware/auth.middleware.js";
 const router = Router();
 
 router.get("/", getAllCertificates);
 router.get("/:id", getCertificateById);
 
-router.post("/", validate(createCertificationSchema), createCertificate);
+router.post(
+  "/",
+  validate(createCertificationSchema),
+  authenticate,
+  authorize("admin"),
+  createCertificate,
+);
 
-router.patch("/:id", validate(updateCertificationSchema), updateCerticicate);
+router.patch(
+  "/:id",
+  authenticate,
+  validate(updateCertificationSchema),
+  authorize("admin"),
+  updateCerticicate,
+);
 
-router.delete("/:id", deleteCertificate);
+router.delete("/:id", authenticate, authorize("admin"), deleteCertificate);
 
 export default router;

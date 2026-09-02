@@ -11,15 +11,30 @@ import { validate } from "../../middleware/validate.middleware.js";
 
 import { updateEducationSchema, createEducationSchema } from "./edu.schema.js";
 
+import { authorize } from "../../middleware/role.middleware.js";
+import { authenticate } from "../../middleware/auth.middleware.js";
+
 const router = Router();
 
 router.get("/", getAllEducation);
 router.get("/:id", getEducationById);
 
-router.post("/", validate(createEducationSchema), createEducation);
+router.post(
+  "/",
+  validate(createEducationSchema),
+  authenticate,
+  authorize("admin"),
+  createEducation,
+);
 
-router.patch("/:id", validate(updateEducationSchema), updateEducation);
+router.patch(
+  "/:id",
+  validate(updateEducationSchema),
+  authenticate,
+  authorize("admin"),
+  updateEducation,
+);
 
-router.delete("/:id", deleteEducation);
+router.delete("/:id", authenticate, authorize("admin"), deleteEducation);
 
 export default router;
