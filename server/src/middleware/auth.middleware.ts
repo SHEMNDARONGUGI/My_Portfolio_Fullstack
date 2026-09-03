@@ -17,6 +17,7 @@ export const authenticate: RequestHandler = (req, res, next) => {
     const payload = verifyToken(token);
 
     res.locals.user = payload;
+    next();
   } catch (error) {
     res.status(401).json({
       success: false,
