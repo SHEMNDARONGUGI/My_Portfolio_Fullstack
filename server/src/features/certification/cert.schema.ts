@@ -9,6 +9,7 @@ const optionalUrl = z
 
 export const createCertificationSchema = z.object({
   imageUrl: optionalUrl,
+  certSource: z.string().min(1, "Certificate source institution is required"),
   certTitle: z.string().min(1, "Certificate title is required"),
   description: z.string().min(1, "Description is required"),
   certLink: optionalUrl,

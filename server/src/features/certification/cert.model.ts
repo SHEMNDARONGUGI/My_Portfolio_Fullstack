@@ -7,6 +7,12 @@ const certificateSchema = new mongoose.Schema({
     trim: true,
   },
 
+  certSource: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+
   certTitle: {
     type: String,
     required: true,
