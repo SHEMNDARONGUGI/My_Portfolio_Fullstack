@@ -6,7 +6,7 @@ export const authenticate: RequestHandler = (req, res, next) => {
   const token = req.cookies?.token;
 
   if (!token) {
-    res.status(201).json({
+    res.status(401).json({
       success: false,
       message: "Authentication required",
     });
