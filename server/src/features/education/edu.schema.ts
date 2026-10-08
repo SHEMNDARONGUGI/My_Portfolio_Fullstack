@@ -1,6 +1,11 @@
 import { z } from "zod";
 
-const optionalUrl = z.string().url().or(z.literal("")).optional();
+const optionalImageUrl = z
+  .string()
+  .url()
+  .or(z.string().regex(/^\/uploads\/[a-f0-9-]+\.(avif|gif|jpg|png|webp)$/i))
+  .or(z.literal(""))
+  .optional();
 
 export const createEducationSchema = z.object({
   institution: z.string().min(1, "Institution is required"),
@@ -9,7 +14,7 @@ export const createEducationSchema = z.object({
   skills: z.array(z.string()),
   startDate: z.string().min(1, "Start date is required"),
   endDate: z.string().optional(),
-  logoUrl: optionalUrl,
+  logoUrl: optionalImageUrl,
 });
 
 export const updateEducationSchema = createEducationSchema.partial();

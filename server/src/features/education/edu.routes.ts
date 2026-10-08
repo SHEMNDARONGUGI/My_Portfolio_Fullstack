@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, type Router as ExpressRouter } from "express";
 import {
   getAllEducation,
   getEducationById,
@@ -14,7 +14,7 @@ import { updateEducationSchema, createEducationSchema } from "./edu.schema.js";
 import { authorize } from "../../middleware/role.middleware.js";
 import { authenticate } from "../../middleware/auth.middleware.js";
 
-const router = Router();
+const router: ExpressRouter = Router();
 
 router.get("/", getAllEducation);
 router.get("/:id", getEducationById);

@@ -1,6 +1,6 @@
-import { Router } from "express";
+import { Router, type Router as ExpressRouter } from "express";
 
-import { login, logout } from "./auth.controller.js";
+import { getCurrentUser, login, logout } from "./auth.controller.js";
 import { loginSchema } from "./auth.schema.js";
 
 import { validate } from "../../middleware/validate.middleware.js";
@@ -8,7 +8,7 @@ import { authenticate } from "../../middleware/auth.middleware.js";
 
 import rateLimit from "express-rate-limit";
 
-const router = Router();
+const router: ExpressRouter = Router();
 
 const LoginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -19,6 +19,7 @@ const LoginLimiter = rateLimit({
   },
 });
 router.post("/super-admin", LoginLimiter, validate(loginSchema), login);
+router.get("/me", authenticate, getCurrentUser);
 router.post("/logout", authenticate, logout);
 
 export default router;

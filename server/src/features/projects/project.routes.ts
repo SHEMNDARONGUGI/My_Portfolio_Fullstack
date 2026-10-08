@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, type Router as ExpressRouter } from "express";
 import {
   getAllProjects,
   createProject,
@@ -10,7 +10,7 @@ import {
 import { authorize } from "../../middleware/role.middleware.js";
 import { authenticate } from "../../middleware/auth.middleware.js";
 
-const router = Router();
+const router: ExpressRouter = Router();
 
 router.get("/", getAllProjects);
 router.get("/:id", getProjectById);

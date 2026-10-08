@@ -1,7 +1,7 @@
 # Full-Stack Integration, Authentication and File Upload Guide
 
 **Author:** Gideon  
-**Recipient:** Shem Daro  
+**Recipient:** Shem Ndaro  
 **Repository:** My Portfolio Fullstack (`SHEMNDARONGUGI/My_Portfolio_Fullstack`)  
 
 ---

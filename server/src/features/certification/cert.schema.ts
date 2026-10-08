@@ -7,8 +7,16 @@ const optionalUrl = z
   .transform((value) => value || undefined)
   .optional();
 
+const optionalImageUrl = z
+  .string()
+  .url()
+  .or(z.string().regex(/^\/uploads\/[a-f0-9-]+\.(avif|gif|jpg|png|webp)$/i))
+  .or(z.literal(""))
+  .transform((value) => value || undefined)
+  .optional();
+
 export const createCertificationSchema = z.object({
-  imageUrl: optionalUrl,
+  imageUrl: optionalImageUrl,
   certSource: z.string().min(1, "Certificate source institution is required"),
   certTitle: z.string().min(1, "Certificate title is required"),
   description: z.string().min(1, "Description is required"),

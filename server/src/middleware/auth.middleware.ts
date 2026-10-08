@@ -1,5 +1,4 @@
 import type { RequestHandler } from "express";
-
 import { verifyToken } from "../utils/jwt.js";
 
 export const authenticate: RequestHandler = (req, res, next) => {

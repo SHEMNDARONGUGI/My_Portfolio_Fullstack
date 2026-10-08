@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, type Router as ExpressRouter } from "express";
 import { validate } from "../../middleware/validate.middleware.js";
 import {
   getAllSkills,
@@ -12,7 +12,7 @@ import { authorize } from "../../middleware/role.middleware.js";
 import { authenticate } from "../../middleware/auth.middleware.js";
 
 import { createSkillSchema, updateSkillSchema } from "./skills.schema.js";
-const router = Router();
+const router: ExpressRouter = Router();
 
 router.get("/", getAllSkills);
 router.get("/:id", getSkillById);
