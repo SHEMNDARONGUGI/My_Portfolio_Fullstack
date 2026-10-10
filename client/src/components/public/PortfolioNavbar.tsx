@@ -24,7 +24,7 @@ export default function PortfolioNavbar() {
       >
         <a
           href="#home"
-          className="text-2xl font-bold tracking-tight text-foreground"
+          className="text-xl font-bold tracking-tight text-foreground sm:text-2xl"
           onClick={() => setMenuOpen(false)}
         >
           Shem <span className="text-primary">Ndaro</span>
@@ -32,7 +32,7 @@ export default function PortfolioNavbar() {
 
         <button
           type="button"
-          className="rounded-lg p-2 text-foreground hover:bg-muted md:hidden"
+          className="rounded-lg p-2 text-foreground hover:bg-muted xl:hidden"
           aria-label={
             menuOpen ? "Close navigation menu" : "Open navigation menu"
           }
@@ -42,7 +42,7 @@ export default function PortfolioNavbar() {
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
 
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden items-center gap-4 xl:flex 2xl:gap-6">
           {sections.map(([id, title]) => (
             <a
               key={id}
@@ -62,7 +62,7 @@ export default function PortfolioNavbar() {
         </div>
 
         {menuOpen && (
-          <div className="absolute inset-x-0 top-full border-b border-border bg-background p-4 text-foreground shadow-xl md:hidden">
+          <div className="absolute inset-x-0 top-full max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-b border-border bg-background p-4 text-foreground shadow-xl xl:hidden">
             <div className="mx-auto flex max-w-7xl flex-col gap-1">
               {sections.map(([id, title]) => (
                 <a

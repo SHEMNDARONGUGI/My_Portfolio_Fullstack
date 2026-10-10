@@ -45,15 +45,15 @@ export default function ServicesSection() {
         {services.map((service) => (
           <article
             key={service._id}
-            className="rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-lg shadow-black/5 transition-transform hover:-translate-y-1"
+            className="min-w-0 rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-lg shadow-black/5 transition-transform hover:-translate-y-1 sm:p-6"
           >
             <div className="mb-4 text-3xl" aria-hidden="true">
               {service.icon}
             </div>
-            <h3 className="text-2xl font-semibold text-foreground">
+            <h3 className="break-words text-xl font-semibold text-foreground sm:text-2xl">
               {service.title}
             </h3>
-            <p className="mt-4 text-base leading-7 text-muted-foreground">
+            <p className="mt-4 break-words text-base leading-7 text-muted-foreground">
               {service.description}
             </p>
 
@@ -62,7 +62,7 @@ export default function ServicesSection() {
                 {service.features.map((feature) => (
                   <span
                     key={feature}
-                    className="rounded-full bg-muted px-3 py-1 text-sm text-tag-foreground"
+                    className="break-all rounded-full bg-muted px-3 py-1 text-sm text-tag-foreground"
                   >
                     {feature}
                   </span>

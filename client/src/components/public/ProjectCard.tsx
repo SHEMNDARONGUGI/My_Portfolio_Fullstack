@@ -8,7 +8,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-lg shadow-black/5 transition-transform hover:-translate-y-1">
+    <article className="min-w-0 rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-lg shadow-black/5 transition-transform hover:-translate-y-1 sm:p-6">
       {project.imageUrl && (
         <img
           src={getImageUrl(project.imageUrl)}
@@ -18,17 +18,17 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       )}
 
       <div className="mb-4 flex items-center justify-between gap-3">
-        <h3 className="text-2xl font-semibold text-foreground">{project.title}</h3>
+        <h3 className="break-words text-xl font-semibold text-foreground sm:text-2xl">{project.title}</h3>
       </div>
 
-      <p className="text-base leading-7 text-muted-foreground">{project.description}</p>
+      <p className="break-words text-base leading-7 text-muted-foreground">{project.description}</p>
 
       {project.technologies.length > 0 && (
         <div className="mt-5 flex flex-wrap gap-2">
           {project.technologies.map((technology) => (
             <span
               key={technology}
-              className="rounded-full bg-muted px-3 py-1 text-sm text-tag-foreground"
+              className="break-all rounded-full bg-muted px-3 py-1 text-sm text-tag-foreground"
             >
               {technology}
             </span>

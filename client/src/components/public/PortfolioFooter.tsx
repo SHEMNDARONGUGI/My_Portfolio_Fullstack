@@ -23,7 +23,7 @@ export default function PortfolioFooter() {
         </div>
         <nav
           aria-label="Footer navigation"
-          className="flex flex-wrap gap-x-5 gap-y-3"
+          className="flex flex-wrap gap-x-4 gap-y-3 sm:gap-x-5"
         >
           {sections.map(([id, title]) => (
             <a

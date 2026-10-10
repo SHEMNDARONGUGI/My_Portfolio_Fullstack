@@ -9,7 +9,7 @@ export default function CertificationCard({
   certificate,
 }: CertificationCardProps) {
   return (
-    <article className="rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-lg shadow-black/5 transition-transform hover:-translate-y-1">
+    <article className="min-w-0 rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-lg shadow-black/5 transition-transform hover:-translate-y-1 sm:p-6">
       {certificate.imageUrl && (
         <img
           src={getImageUrl(certificate.imageUrl)}
@@ -19,15 +19,15 @@ export default function CertificationCard({
       )}
 
       <div className="mb-4">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-primary">
+        <p className="break-words text-sm font-medium uppercase tracking-[0.2em] text-primary">
           {certificate.certSource}
         </p>
-        <h3 className="mt-2 text-2xl font-semibold text-foreground">
+        <h3 className="mt-2 break-words text-xl font-semibold text-foreground sm:text-2xl">
           {certificate.certTitle}
         </h3>
       </div>
 
-      <p className="text-base leading-7 text-muted-foreground">
+      <p className="break-words text-base leading-7 text-muted-foreground">
         {certificate.description}
       </p>
 

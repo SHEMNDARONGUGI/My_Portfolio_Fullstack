@@ -66,7 +66,7 @@ export default function ContactSection() {
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-5 rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-lg shadow-black/5 md:p-8"
+          className="space-y-5 rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-lg shadow-black/5 sm:p-6 md:p-8"
         >
           <div className="space-y-2">
             <Label htmlFor="contact-name">Name</Label>

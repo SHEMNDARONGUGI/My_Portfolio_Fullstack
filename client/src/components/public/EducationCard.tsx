@@ -11,8 +11,8 @@ export default function EducationCard({ education }: EducationCardProps) {
     : `${education.startDate} - Present`;
 
   return (
-    <article className="rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-lg shadow-black/5 transition-transform hover:-translate-y-1">
-      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+    <article className="min-w-0 rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-lg shadow-black/5 transition-transform hover:-translate-y-1 sm:p-6">
+      <div className="mb-4 flex min-w-0 flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex min-w-0 items-center gap-4">
           {education.logoUrl && (
             <div className="flex size-16 shrink-0 items-center justify-center rounded-xl border border-border bg-background p-2 sm:size-[4.5rem]">
@@ -25,21 +25,21 @@ export default function EducationCard({ education }: EducationCardProps) {
             </div>
           )}
           <div className="min-w-0">
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-primary">
+            <p className="break-words text-sm font-medium uppercase tracking-[0.2em] text-primary">
               {education.institution}
             </p>
-            <h3 className="mt-2 text-2xl font-semibold text-foreground">
+            <h3 className="mt-2 break-words text-xl font-semibold text-foreground sm:text-2xl">
               {education.course}
             </h3>
           </div>
         </div>
 
-        <span className="ml-20 w-fit shrink-0 rounded-full border border-primary/30 bg-accent px-3 py-1 text-xs font-medium text-accent-foreground sm:ml-0">
+        <span className="ml-20 w-fit max-w-full rounded-full border border-primary/30 bg-accent px-3 py-1 text-xs font-medium text-accent-foreground sm:ml-0">
           {period}
         </span>
       </div>
 
-      <p className="text-base leading-7 text-muted-foreground">
+      <p className="break-words text-base leading-7 text-muted-foreground">
         {education.description}
       </p>
 
@@ -48,7 +48,7 @@ export default function EducationCard({ education }: EducationCardProps) {
           {education.skills.map((skill) => (
             <span
               key={skill}
-              className="rounded-full bg-muted px-3 py-1 text-sm text-tag-foreground"
+              className="break-all rounded-full bg-muted px-3 py-1 text-sm text-tag-foreground"
             >
               {skill}
             </span>

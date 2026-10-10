@@ -26,7 +26,7 @@ export default function AboutSection() {
     <section
       id="about"
       aria-labelledby="about-title"
-      className="grid items-center gap-10 px-4 py-14 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:px-8 md:py-20"
+      className="grid min-w-0 items-center gap-8 px-4 py-10 sm:gap-10 sm:py-14 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:px-8 md:py-20"
     >
       <div className="mx-auto w-full max-w-sm">
         <div className="overflow-hidden rounded-3xl border border-border bg-card p-2 shadow-xl shadow-black/10">
@@ -72,14 +72,14 @@ export default function AboutSection() {
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {highlights.map(({ icon: Icon, title, description }) => (
             <article
               key={title}
-              className="rounded-2xl border border-border bg-card p-4"
+              className="min-w-0 rounded-2xl border border-border bg-card p-4"
             >
-              <h2 className="mt-3 text-sm font-semibold text-foreground inline-flex gap-2">
-                <Icon aria-hidden="true" className="size-5 text-primary" />
+              <h2 className="mt-3 inline-flex items-start gap-2 text-sm font-semibold text-foreground">
+                <Icon aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-primary" />
                 {title}
               </h2>
               <p className="mt-2 text-xs leading-5 text-muted-foreground">

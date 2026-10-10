@@ -65,7 +65,7 @@ export default function ContactInbox() {
   return (
     <section id="messages" className="space-y-6">
       <Card>
-        <CardHeader className="flex flex-row items-start justify-between gap-4">
+        <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <CardTitle>Contact messages</CardTitle>
             <CardDescription>
@@ -136,7 +136,7 @@ export default function ContactInbox() {
                   key={message._id}
                   className="space-y-4 rounded-xl border p-4"
                 >
-                  <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
+                  <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start">
                     <div className="min-w-0">
                       <h3 className="truncate font-semibold">{message.name}</h3>
                       <a
@@ -146,7 +146,7 @@ export default function ContactInbox() {
                         {message.email}
                       </a>
                     </div>
-                    <div className="flex shrink-0 items-center gap-2">
+                    <div className="flex min-w-0 flex-wrap items-center gap-2">
                       <Badge
                         variant={
                           message.emailDeliveryStatus === "sent"

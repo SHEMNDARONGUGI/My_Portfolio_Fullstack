@@ -757,9 +757,9 @@ export default function AdminDashboard() {
           onSectionChange={setSelectedSection}
         />
         <SidebarInset>
-          <header className="flex h-(--header-height) shrink-0 items-center justify-between gap-3 border-b px-4 lg:px-6">
+          <header className="flex min-h-(--header-height) shrink-0 items-center justify-between gap-2 border-b px-3 py-2 sm:gap-3 sm:px-4 lg:px-6">
             <div className="flex min-w-0 items-center gap-3">
-              <SidebarTrigger />
+              <SidebarTrigger className="shrink-0" />
               <Separator orientation="vertical" className="h-5" />
               <div className="min-w-0">
                 <h1 className="truncate text-base font-semibold">
@@ -770,7 +770,7 @@ export default function AdminDashboard() {
                 </p>
               </div>
             </div>
-            <div className="flex shrink-0 gap-2">
+            <div className="flex shrink-0 items-center gap-1 sm:gap-2">
               <ThemeToggle />
               <Button asChild variant="outline" size="sm">
                 <a href="/" target="_blank" rel="noreferrer">
