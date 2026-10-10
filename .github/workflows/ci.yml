@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  client:
+    name: Client checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.0.9
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: client/pnpm-lock.yaml
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Lint application entry points and changed UI
+        run: >-
+          pnpm exec eslint
+          src/App.tsx
+          src/components/app-sidebar.tsx
+          src/components/admin/ContactInbox.tsx
+          src/components/public/ContactSection.tsx
+          src/components/public/PortfolioFooter.tsx
+          src/components/public/PortfolioNavbar.tsx
+          src/pages/Admin/AdminDashboard.tsx
+          src/pages/Public/NotFoundPage.tsx
+          src/pages/Public/PortfolioPage.tsx
+      - name: Build
+        run: pnpm build
+
+  server:
+    name: Server checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.0.9
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: server/pnpm-lock.yaml
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Type-check
+        run: pnpm typecheck
+      - name: Run tests
+        run: pnpm test
+      - name: Build
+        run: pnpm build

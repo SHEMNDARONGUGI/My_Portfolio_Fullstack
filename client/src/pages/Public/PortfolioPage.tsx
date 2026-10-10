@@ -1,5 +1,6 @@
 import CertificationSection from "../../components/public/CertificationSection";
 import AboutSection from "../../components/public/AboutSection";
+import ContactSection from "../../components/public/ContactSection";
 import EducationSection from "../../components/public/EducationSection";
 import ExperienceSection from "../../components/public/ExperienceSection";
 import PortfolioFooter from "../../components/public/PortfolioFooter";
@@ -20,6 +21,7 @@ export default function PortfolioPage() {
         <CertificationSection />
         <SkillsSection />
         <ServicesSection />
+        <ContactSection />
       </main>
       <PortfolioFooter />
     </div>

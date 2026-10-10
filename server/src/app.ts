@@ -15,6 +15,9 @@ import certRouter from "./features/certification/cert.routes.js";
 import serviceRouter from "./features/services/service.routes.js";
 import authRouter from "./features/auth/auth.routes.js";
 import uploadRouter from "./features/uploads/upload.routes.js";
+import contactRouter from "./features/contact/contact.routes.js";
+import swaggerUi from "swagger-ui-express";
+import { openApiSpec } from "./docs/openapi.js";
 
 const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 const app: Express = express();
@@ -41,6 +44,15 @@ app.get("/", (req, res) => {
   res.json({ message: "Portfolio API is running" });
 });
 
+app.get("/api-docs.json", (_req, res) => {
+  res.json(openApiSpec);
+});
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(openApiSpec, { customSiteTitle: "Portfolio API Docs" }),
+);
+
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/uploads", uploadRouter);
 
@@ -50,6 +62,7 @@ app.use("/api/v1/education", eduRouter);
 app.use("/api/v1/skill", skillRouter);
 app.use("/api/v1/certificate", certRouter);
 app.use("/api/v1/services", serviceRouter);
+app.use("/api/v1/contact", contactRouter);
 
 // Global errorHandler
 app.use(errorHandler);

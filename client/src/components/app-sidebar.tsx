@@ -5,6 +5,7 @@ import {
   Code2,
   FolderKanban,
   GraduationCap,
+  Inbox,
   LayoutDashboard,
   PanelsTopLeft,
   Wrench,
@@ -22,18 +23,24 @@ import {
 } from "@/components/ui/sidebar";
 
 const portfolioSections = [
-  { title: "Projects", href: "#manager", icon: FolderKanban },
-  { title: "Experience", href: "#manager", icon: BriefcaseBusiness },
-  { title: "Education", href: "#manager", icon: GraduationCap },
-  { title: "Certifications", href: "#manager", icon: Award },
-  { title: "Skills", href: "#manager", icon: Code2 },
-  { title: "Services", href: "#manager", icon: Wrench },
+  { id: "projects", title: "Projects", icon: FolderKanban },
+  { id: "experience", title: "Experience", icon: BriefcaseBusiness },
+  { id: "education", title: "Education", icon: GraduationCap },
+  { id: "certifications", title: "Certifications", icon: Award },
+  { id: "skills", title: "Skills", icon: Code2 },
+  { id: "services", title: "Services", icon: Wrench },
 ];
 
 export function AppSidebar({
   userName = "Administrator",
+  selectedSection,
+  onSectionChange,
   ...props
-}: ComponentProps<typeof Sidebar> & { userName?: string }) {
+}: ComponentProps<typeof Sidebar> & {
+  userName?: string;
+  selectedSection: string;
+  onSectionChange: (sectionId: string) => void;
+}) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader className="p-4">
@@ -67,16 +74,35 @@ export function AppSidebar({
         <SidebarGroup>
           <SidebarGroupLabel>Portfolio content</SidebarGroupLabel>
           <SidebarMenu>
-            {portfolioSections.map(({ title, href, icon: Icon }) => (
+            {portfolioSections.map(({ id, title, icon: Icon }) => (
               <SidebarMenuItem key={title}>
-                <SidebarMenuButton asChild>
-                  <a href={href}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={selectedSection === id}
+                >
+                  <a href="#manager" onClick={() => onSectionChange(id)}>
                     <Icon />
                     <span>{title}</span>
                   </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
+          </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Inbox</SidebarGroupLabel>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                isActive={selectedSection === "messages"}
+              >
+                <a href="#messages" onClick={() => onSectionChange("messages")}>
+                  <Inbox />
+                  <span>Messages</span>
+                </a>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>

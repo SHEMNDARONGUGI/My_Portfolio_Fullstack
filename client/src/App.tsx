@@ -1,5 +1,6 @@
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Login from "./pages/Admin/Login";
+import NotFoundPage from "./pages/Public/NotFoundPage";
 import PortfolioPage from "./pages/Public/PortfolioPage";
 
 export default function App() {
@@ -13,5 +14,9 @@ export default function App() {
     return <AdminDashboard />;
   }
 
-  return <PortfolioPage />;
+  if (path === "/") {
+    return <PortfolioPage />;
+  }
+
+  return <NotFoundPage />;
 }

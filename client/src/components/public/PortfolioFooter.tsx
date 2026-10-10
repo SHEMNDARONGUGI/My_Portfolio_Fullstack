@@ -6,6 +6,7 @@ const sections = [
   ["certifications", "Certifications"],
   ["skills", "Skills"],
   ["services", "Services"],
+  ["contact", "Contact"],
 ] as const;
 
 export default function PortfolioFooter() {

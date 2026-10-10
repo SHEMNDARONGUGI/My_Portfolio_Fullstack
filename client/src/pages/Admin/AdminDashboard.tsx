@@ -6,7 +6,7 @@ import {
   type CSSProperties,
   type FormEvent,
 } from "react";
-import { isAxiosError } from "axios";
+import { isAxiosError, isCancel } from "axios";
 import { toast } from "sonner";
 import {
   ExternalLink,
@@ -36,10 +36,8 @@ import {
 } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ThemeToggle from "@/components/ThemeToggle";
-import {
-  getCurrentUser,
-  logout,
-} from "../../Services/auth.service";
+import ContactInbox from "@/components/admin/ContactInbox";
+import { getCurrentUser, logout } from "../../Services/auth.service";
 import { getImageUrl, uploadImage } from "../../Services/upload.service";
 import api from "../../lib/api";
 
@@ -274,11 +272,14 @@ const valuesFromRecord = (
   );
 
 function ContentManager({
+  collectionId,
+  onCollectionChange,
   onCountChange,
 }: {
+  collectionId: string;
+  onCollectionChange: (id: string) => void;
   onCountChange: (id: string, count: number) => void;
 }) {
-  const [collectionId, setCollectionId] = useState(collections[0].id);
   const [records, setRecords] = useState<ContentRecord[]>([]);
   const [values, setValues] = useState<EditorValues>({});
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -292,25 +293,30 @@ function ContentManager({
     [collectionId],
   );
 
-  const loadRecords = useCallback(async () => {
+  const loadRecords = useCallback(async (signal?: AbortSignal) => {
     try {
-      const response = await api.get<CollectionResponse>(config.endpoint);
+      const response = await api.get<CollectionResponse>(config.endpoint, {
+        signal,
+      });
       if (!Array.isArray(response.data.data)) {
         throw new Error(`Unexpected ${config.title.toLowerCase()} response`);
       }
       setRecords(response.data.data);
       onCountChange(config.id, response.data.data.length);
     } catch (loadError) {
+      if (isCancel(loadError)) return;
       setError(
         `Could not load ${config.title.toLowerCase()}: ${errorMessage(loadError)}`,
       );
     } finally {
-      setLoading(false);
+      if (!signal?.aborted) setLoading(false);
     }
   }, [config, onCountChange]);
 
   useEffect(() => {
-    void Promise.resolve().then(loadRecords);
+    const controller = new AbortController();
+    void Promise.resolve().then(() => loadRecords(controller.signal));
+    return () => controller.abort();
   }, [loadRecords]);
 
   const startNew = () => {
@@ -427,11 +433,9 @@ function ContentManager({
                   (item) => item.id === event.target.value,
                 );
                 if (!nextCollection) return;
-                setCollectionId(nextCollection.id);
+                onCollectionChange(nextCollection.id);
                 setEditingId(null);
                 setValues(emptyValues(nextCollection));
-                setLoading(true);
-                setError("");
               }}
               className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
             >
@@ -653,6 +657,7 @@ function ContentManager({
 }
 
 export default function AdminDashboard() {
+  const [selectedSection, setSelectedSection] = useState(collections[0].id);
   const [counts, setCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -745,7 +750,12 @@ export default function AdminDashboard() {
           } as CSSProperties
         }
       >
-        <AppSidebar variant="inset" userName="Shem Ndaro" />
+        <AppSidebar
+          variant="inset"
+          userName="Shem Ndaro"
+          selectedSection={selectedSection}
+          onSectionChange={setSelectedSection}
+        />
         <SidebarInset>
           <header className="flex h-(--header-height) shrink-0 items-center justify-between gap-3 border-b px-4 lg:px-6">
             <div className="flex min-w-0 items-center gap-3">
@@ -817,7 +827,16 @@ export default function AdminDashboard() {
                 ))}
               </div>
             </section>
-            <ContentManager onCountChange={updateCount} />
+            {selectedSection === "messages" ? (
+              <ContactInbox />
+            ) : (
+              <ContentManager
+                key={selectedSection}
+                collectionId={selectedSection}
+                onCollectionChange={setSelectedSection}
+                onCountChange={updateCount}
+              />
+            )}
           </main>
         </SidebarInset>
       </SidebarProvider>

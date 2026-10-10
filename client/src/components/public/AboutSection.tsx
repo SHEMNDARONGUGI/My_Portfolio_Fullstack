@@ -78,8 +78,8 @@ export default function AboutSection() {
               key={title}
               className="rounded-2xl border border-border bg-card p-4"
             >
-              <Icon aria-hidden="true" className="size-5 text-primary" />
-              <h2 className="mt-3 text-sm font-semibold text-foreground">
+              <h2 className="mt-3 text-sm font-semibold text-foreground inline-flex gap-2">
+                <Icon aria-hidden="true" className="size-5 text-primary" />
                 {title}
               </h2>
               <p className="mt-2 text-xs leading-5 text-muted-foreground">
