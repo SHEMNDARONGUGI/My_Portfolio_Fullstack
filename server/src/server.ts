@@ -14,4 +14,7 @@ const startServer = async (): Promise<void> => {
   });
 };
 
-startServer();
+startServer().catch((error: unknown) => {
+  console.error("Failed to start server:", error);
+  process.exitCode = 1;
+});

@@ -1,8 +1,7 @@
 import express, { type Express } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { connectDB } from "./config/db.js";
 import "./config/env.js";
 
 import { errorHandler } from "./middleware/error.middleware.js";
@@ -18,6 +17,7 @@ import uploadRouter from "./features/uploads/upload.routes.js";
 import contactRouter from "./features/contact/contact.routes.js";
 import swaggerUi from "swagger-ui-express";
 import { openApiSpec } from "./docs/openapi.js";
+import { uploadDirectory } from "./features/uploads/upload.middleware.js";
 
 const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 const app: Express = express();
@@ -35,10 +35,7 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  "/uploads",
-  express.static(resolve(dirname(fileURLToPath(import.meta.url)), "../uploads")),
-);
+app.use("/uploads", express.static(uploadDirectory));
 
 app.get("/", (req, res) => {
   res.json({ message: "Portfolio API is running" });
@@ -52,6 +49,17 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(openApiSpec, { customSiteTitle: "Portfolio API Docs" }),
 );
+
+if (process.env.VERCEL === "1") {
+  app.use("/api/v1", async (_req, _res, next) => {
+    try {
+      await connectDB();
+      next();
+    } catch (error) {
+      next(error);
+    }
+  });
+}
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/uploads", uploadRouter);

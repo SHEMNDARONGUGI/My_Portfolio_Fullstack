@@ -11,6 +11,19 @@ The contact form uses `CONTACT_EMAIL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`,
 stored in MongoDB and can be listed by an administrator at
 `GET /api/v1/contact`.
 
+## Deploy to Vercel
+
+The repository root `vercel.json` defines the public `client` and `server`
+services. Configure `MONGO_URI` and `JWT_SECRET` as Vercel environment
+variables for the server; configure the SMTP variables above if contact email
+delivery is needed. The client calls the API through the same-origin
+`/api/v1` path.
+
+Image uploads use `/tmp` when running on Vercel. Vercel Functions do not
+provide durable local storage, so uploaded images may disappear or be
+unavailable across function instances. Use object storage before relying on
+persistent uploads in production.
+
 ## Tests and checks
 
 - `pnpm test` runs schema validation tests and API smoke tests.

@@ -1,13 +1,14 @@
 import { mkdirSync } from "node:fs";
 import { randomUUID } from "node:crypto";
+import { tmpdir } from "node:os";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import multer from "multer";
 
-const uploadDirectory = resolve(
-  dirname(fileURLToPath(import.meta.url)),
-  "../../../uploads",
-);
+export const uploadDirectory =
+  process.env.VERCEL === "1"
+    ? resolve(tmpdir(), "portfolio-uploads")
+    : resolve(dirname(fileURLToPath(import.meta.url)), "../../../uploads");
 
 mkdirSync(uploadDirectory, { recursive: true });
 
