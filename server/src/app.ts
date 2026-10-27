@@ -41,6 +41,13 @@ app.get("/", (req, res) => {
   res.json({ message: "Portfolio API is running" });
 });
 
+app.get("/api/health", (_req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Backend is running",
+  });
+});
+
 app.get("/api-docs.json", (_req, res) => {
   res.json(openApiSpec);
 });
