@@ -49,10 +49,11 @@ export default function ServicesSection() {
           >
             <div className="mb-4 text-3xl" aria-hidden="true">
               {service.icon}
+              <h3 className="break-words text-xl font-semibold text-foreground sm:text-2xl">
+                {service.title}
+              </h3>
             </div>
-            <h3 className="break-words text-xl font-semibold text-foreground sm:text-2xl">
-              {service.title}
-            </h3>
+
             <p className="mt-4 break-words text-base leading-7 text-muted-foreground">
               {service.description}
             </p>
