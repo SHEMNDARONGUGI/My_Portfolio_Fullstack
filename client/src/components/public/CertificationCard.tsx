@@ -14,7 +14,7 @@ export default function CertificationCard({
         <img
           src={getImageUrl(certificate.imageUrl)}
           alt={certificate.certTitle}
-          className="mb-5 h-40 w-full rounded-xl object-cover"
+          className="mb-5 h-50 w-full rounded-l object-cover"
         />
       )}
 
