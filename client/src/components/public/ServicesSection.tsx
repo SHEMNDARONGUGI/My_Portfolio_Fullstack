@@ -47,7 +47,10 @@ export default function ServicesSection() {
             key={service._id}
             className="min-w-0 rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-lg shadow-black/5 transition-transform hover:-translate-y-1 sm:p-6"
           >
-            <div className="mb-4 text-3xl" aria-hidden="true">
+            <div
+              className="mb-4 text-3xl flex flex-row gap-2"
+              aria-hidden="true"
+            >
               {service.icon}
               <h3 className="break-words text-xl font-semibold text-foreground sm:text-2xl">
                 {service.title}

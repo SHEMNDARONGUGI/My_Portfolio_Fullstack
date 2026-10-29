@@ -4,7 +4,7 @@ export interface Certificate {
   certSource: string;
   certTitle: string;
   description: string;
-  certLink?: string;
+  certLink: string;
   createdAt: string;
   updatedAt: string;
 }
