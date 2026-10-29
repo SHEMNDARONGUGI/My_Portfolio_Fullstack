@@ -293,25 +293,28 @@ function ContentManager({
     [collectionId],
   );
 
-  const loadRecords = useCallback(async (signal?: AbortSignal) => {
-    try {
-      const response = await api.get<CollectionResponse>(config.endpoint, {
-        signal,
-      });
-      if (!Array.isArray(response.data.data)) {
-        throw new Error(`Unexpected ${config.title.toLowerCase()} response`);
+  const loadRecords = useCallback(
+    async (signal?: AbortSignal) => {
+      try {
+        const response = await api.get<CollectionResponse>(config.endpoint, {
+          signal,
+        });
+        if (!Array.isArray(response.data.data)) {
+          throw new Error(`Unexpected ${config.title.toLowerCase()} response`);
+        }
+        setRecords(response.data.data);
+        onCountChange(config.id, response.data.data.length);
+      } catch (loadError) {
+        if (isCancel(loadError)) return;
+        setError(
+          `Could not load ${config.title.toLowerCase()}: ${errorMessage(loadError)}`,
+        );
+      } finally {
+        if (!signal?.aborted) setLoading(false);
       }
-      setRecords(response.data.data);
-      onCountChange(config.id, response.data.data.length);
-    } catch (loadError) {
-      if (isCancel(loadError)) return;
-      setError(
-        `Could not load ${config.title.toLowerCase()}: ${errorMessage(loadError)}`,
-      );
-    } finally {
-      if (!signal?.aborted) setLoading(false);
-    }
-  }, [config, onCountChange]);
+    },
+    [config, onCountChange],
+  );
 
   useEffect(() => {
     const controller = new AbortController();
@@ -583,7 +586,7 @@ function ContentManager({
                     <div className="space-y-3">
                       <Input
                         id={`field-${field.name}`}
-                        type="url"
+                        type="text"
                         placeholder="Paste an image URL or upload an image"
                         value={typeof value === "string" ? value : ""}
                         onChange={(event) =>
